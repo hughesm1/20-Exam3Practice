@@ -6,8 +6,8 @@ This problem provides practice at:
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Marcus Hughes-Oliver.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 ###############################################################################
 # Students:
@@ -30,6 +30,7 @@ Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
 ###############################################################################
 
 import rosegraphics as rg
+import math
 
 
 def main():
@@ -102,6 +103,23 @@ def hourglass(window, n, point, radius, color):
     #    DIFFICULTY:      8
     #    TIME ESTIMATE:  25 minutes (warning: this problem is challenging)
     # -------------------------------------------------------------------------
+    point1 = point.clone()
+    originpoint = point
+    for i in range(n):
+        for j in range(i + 1):
+            circ = rg.Circle(point, radius)
+            line = rg.Line(rg.Point(circ.center.x - circ.radius, circ.center.y),
+                        rg.Point(circ.center.x + circ.radius, circ.center.y))
+            circ.fill_color = color
+            circ.attach_to(window)
+            line.attach_to(window)
+            if i > 0:
+                point.x = point.x + (2 * radius)
+        point.x = point.x - ((4*i + 1) * radius)
+        point.y = point.y - (2 * math.sin(3.14 / 3) * radius)
+
+
+    window.render()
 
 
 def run_test_many_hourglasses():

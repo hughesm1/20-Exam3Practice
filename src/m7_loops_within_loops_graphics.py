@@ -221,18 +221,46 @@ def many_hourglasses(window, square, m, colors):
     #                         a correct "hourglass" function above)
     #    TIME ESTIMATE:  20 minutes (warning: this problem is challenging)
     # -------------------------------------------------------------------------
-    cent = square.clone().center
-    length = square.clone().length_of_each_side
-    for i in range(1, m):
-        rect = rg.Rectangle(rg.Point(cent.x + (length / 2),
-                                     cent.y - (length * 1.5)),
-                            rg.Point(cent.x + (length * 2.5),
-                                     cent.y + (length * 1.5)))
-        cent.x = cent.x + (length / 2) + (rect.get_width() / 2)
-        rect.attach_to(window)
-
+    # cent = square.clone().center
+    # length = square.clone().length_of_each_side
+    # for i in range(1, m):
+    #     rect = rg.Rectangle(rg.Point(cent.x + (length / 2),
+    #                                  cent.y - (length * 1.5)),
+    #                         rg.Point(cent.x + (length * 2.5),
+    #                                  cent.y + (length * 1.5)))
+    #     cent.x = cent.x + (length / 2) + (rect.get_width() / 2)
+    #     rect.attach_to(window)
+    #
+    # square.attach_to(window)
+    # window.render()
+    print(square.center)
     square.attach_to(window)
+    length = square.length_of_each_side
+    print(square.center)
+    print(square.center)
+    print()
+    len_colors = len(colors)
+    print(m)
+    for k in range(m):
+        cloney = square.center.clone()
+        if k > 0:
+            cloney.x = cloney.x + (1.5 * length)
+        # if len_colors == k:
+        if k > 1:
+            cloney.x = cloney.x + (2.5 * length)
+        if k > 2:
+            cloney.x = cloney.x + (3.5 * length)
+        hourglass(window, k + 1, cloney, length / 2, colors[k])
+    squiggles = square.center.clone()
+    for j in range(m - 1):
+        rect = rg.Rectangle(rg.Point(square.center.x - (.5 * length), square.center.y - (1.37 * length)),
+                            rg.Point(squiggles.x + (1.5 * length), squiggles.y + (1.37 * length)))
+        rect.move_by(length, 0)
+        rect.attach_to(window)
     window.render()
+
+
+
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
